@@ -1,0 +1,68 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/e0e50b80-944f-4681-9e1b-887652b6f36d/ # 
+title: Books
+version: 1.0
+
+/book:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [{"BookTitle":"Data Science1","Author":"XYZ",                  "YOP":"2005","Cost":"5000"},
+              {"BookTitle":"Data Science2","Author":"XYZ",                  "YOP":"2006","Cost":"5001"},
+              {"BookTitle":"Data Science3","Author":"XYZ",                  "YOP":"2007","Cost":"5002"}
+              ]
+  post:
+    body:
+      application/json:
+        example: |
+          {"BookTitle":"Data Science3","Author":"XYZ","YOP:"2007","Cost":5002}
+    responses:
+      202:
+        body:
+          application/json:
+            example: |
+             {"message":"Book Added But Not Really"}
+  /{bookTitle}:
+    get:
+      queryParameters:
+        Year:
+          displayName: YOP
+          description: Year of Publication
+          example: string
+          required: true
+          type: string
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {"BookTitle":"Data Science3","Author":"XYZ","YOP":"2007","Cost":5002}
+  /{author}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                [{"Author":"XYZ","No of Books":2},      {"Author":"Puneet","No of Books":2}]
+                
+    post:
+      body:
+        application/json:
+          example: |
+            {"Author":"XYZ","No of Books":2}
+      responses:
+        202:
+          body:
+            application/json:
+              example: |
+                {"message": "Book Added Successfully"}
+                
+                
+            
+
+  
+    
